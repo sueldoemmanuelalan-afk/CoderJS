@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pre-entrega 1</title>
-    <!--JS-->
-  <script defer src="./js/main.js" ></script>
+  <title>Sueldo Alan : Pre-entrega 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="./js/main.js"></script>
 </head>
-<body>
-  <h1>Sueldo Alan</h1>
-  <p>
-    Este simulador permite reservar turnos. Con prompt , alert y la consola.
-    Se pueden consultar los turnos disponibles, reservar uno y visualizar las reservas actuales.
-  </p>
+<body class="d-flex flex-column align-items-center bg-black">
+  <div class="card p-4 text-center">
+    <h1 class="mb-3 text-warning">🥋 Turnos para clases en <span class="text-danger" >Cobra-Kai</span> </h1>
+    <form id="formReserva" class="mb-3">
+      <input id="nombre" type="text" class="form-control mb-2" placeholder="Nombre">
+      <input id="apellido" type="text" class="form-control mb-2" placeholder="Apellido">
+      <select id="actividad" class="form-select mb-2"></select>
+      <select id="turno" class="form-select mb-3"></select>
+      <button class="btn btn-danger w-100" id="btnReservar">Reservar turno</button>
+    </form>
+    <div id="msg" class="mb-3"></div>
+    <ul id="lista" class="list-group text-start mb-3"></ul>
+    <button class="btn btn-outline-light w-100" id="btnBorrar">Borrar todas las reservas</button>
+  </div>
 </body>
 </html>
