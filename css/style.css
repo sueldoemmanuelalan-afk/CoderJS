@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: url(/img/_image.webp);
+  background: url(../img/_image.webp);
   background-repeat: no-repeat;
   background-size: contain; 
   background-position: center;
