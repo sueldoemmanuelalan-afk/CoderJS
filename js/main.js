@@ -67,8 +67,6 @@ const agregar = e => {
     return mostrarMensaje("Completá todos los campos","warning");
   if(reservas.some(r => r.nombre===n && r.apellido===a && r.turno===t.horario))
     return mostrarMensaje("Ya tenés una reserva en ese día y horario","danger");
-  // if(reservas.filter(r => r.turno==t.horario).length >= t.cupo)
-  //   return mostrarMensaje("No hay cupos disponibles para ese turno","danger");
   const ocupados = reservas.reduce((acc, r) => acc + (r.turno === t.horario), 0);
   if (ocupados >= t.cupo)
     return mostrarMensaje("No hay cupos disponibles para ese turno", "danger");
