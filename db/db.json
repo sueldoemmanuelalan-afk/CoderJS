@@ -1,1 +1,6 @@
-
+{
+  "diasValidos": 30,
+  "horarios": ["10:00 hs", "12:00 hs", "16:00 hs", "17:00 hs", "18:00 hs", "20:00 hs", "22:00 hs"],
+  "actividades": ["Clases de Karate", "Defensa Personal", "Ataque Avanzado", "Entrenamiento Físico"],
+  "cupoPorTurno": 3
+}
