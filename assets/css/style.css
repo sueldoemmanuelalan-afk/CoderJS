@@ -16,5 +16,25 @@ body {
   background-color: rgba(0, 0, 0, 0.479);
   max-width: 500px;
   width: 100%;
-  margin-top: 150px;
+}
+.logo {
+  width: 100px;
+  height: 55px;
+}
+.footer-logotipo {
+  width: 25px;
+  height: 25px;
+}
+@font-face {
+  font-family: 'kolker';
+  src: url(../fonts/KolkerBrush-Regular.ttf);
+  font-weight: bold;
+  font-style: bold;
+}
+a {
+  font-family: 'kolker';
+  font-weight: bold;
+}
+.navbar-brand {
+  font-size: 60px;
 }
