@@ -1,4 +1,4 @@
-// variables globales
+// variables
 let horarios = [];
 let actividades = [];
 let cupoPorTurno = 3;
@@ -12,14 +12,14 @@ const actividadInput = document.getElementById('actividad');
 const fechaInput = document.getElementById('fecha');
 const selectHorarioInput = document.getElementById('selectHorario');
 
-// precargar form
+// precarga
 function precargarForm() {
-  document.getElementById('nombre').value = 'Johnny';
-  document.getElementById('apellido').value = 'Lawrence';
-  document.getElementById('email').value = 'J.Lawrence@example.com';
+  nombreInput.value = 'Johnny';
+  apellidoInput.value = 'Lawrence';
+  emailInput.value = 'J.Lawrence@example.com';
 }
 
-// cargar datos desde db.json
+// cargar JSON
 fetch('db/db.json')
   .then((r) => r.json())
   .then((db) => {
@@ -32,48 +32,44 @@ fetch('db/db.json')
     refrescarHistorial();
   });
 
-// actividades en el select
+// actividades
 function llenarActividades() {
-  const sel = document.getElementById('actividad');
-  sel.innerHTML = `<option value="" disabled selected>Seleccioná actividad</option>`;
+  actividadInput.innerHTML = `<option value="" disabled selected>Seleccioná actividad</option>`;
   actividades.forEach((a) => {
-    sel.innerHTML += `<option value="${a}">${a}</option>`;
+    actividadInput.innerHTML += `<option value="${a}">${a}</option>`;
   });
 }
 
 // placeholder horario
 function cargarPlaceholderHorario() {
-  const sel = document.getElementById('selectHorario');
-  sel.innerHTML = `<option disabled selected>Elegí primero un día…</option>`;
-  sel.disabled = true;
+  selectHorarioInput.innerHTML = `<option disabled selected>Elegí primero un día…</option>`;
+  selectHorarioInput.disabled = true;
 }
 
-// horarios según día
-document.getElementById('fecha').addEventListener('change', (e) => {
-  const fecha = e.target.value;
-  cargarHorariosSegunFecha(fecha);
+// cargar horarios por día
+fechaInput.addEventListener('change', (e) => {
+  cargarHorariosSegunFecha(e.target.value);
 });
 
 function cargarHorariosSegunFecha(fecha) {
-  const sel = document.getElementById('selectHorario');
-  sel.innerHTML = `<option disabled selected>Seleccioná horario</option>`;
-  sel.disabled = false;
+  selectHorarioInput.innerHTML = `<option disabled selected>Seleccioná horario</option>`;
+  selectHorarioInput.disabled = false;
 
   let disponible = false;
 
   horarios.forEach((hora) => {
-    const clave = `${fecha} ${hora}`;
-    const ocupados = reservas.filter((r) => r.turno === clave).length;
+    const key = `${fecha} ${hora}`;
+    const ocupados = reservas.filter((r) => r.turno === key).length;
 
     if (ocupados < cupoPorTurno) {
-      sel.innerHTML += `<option value="${hora}">${hora}</option>`;
+      selectHorarioInput.innerHTML += `<option value="${hora}">${hora}</option>`;
       disponible = true;
     }
   });
 
   if (!disponible) {
-    sel.innerHTML = `<option disabled>No hay horarios disponibles</option>`;
-    sel.disabled = true;
+    selectHorarioInput.innerHTML = `<option disabled>No hay horarios disponibles</option>`;
+    selectHorarioInput.disabled = true;
   }
 }
 
@@ -89,53 +85,76 @@ document.getElementById('formReserva').addEventListener('submit', (e) => {
   const hora = selectHorarioInput.value;
 
   if (!nombre || !apellido || !email || !actividad || !fecha || !hora) {
-    return Toastify({ text: 'Completá todos los campos', gravity: 'top', duration: 2000 }).showToast();
+    return Toastify({
+      text: 'Completá todos los campos',
+      gravity: 'top',
+      duration: 2000,
+      className: 'toastify-error',
+    }).showToast();
   }
 
-  const clave = `${fecha} ${hora}`;
+  const turno = `${fecha} ${hora}`;
 
-  // duplicado
-  if (reservas.some((r) => r.nombre === nombre && r.apellido === apellido && r.turno === clave)) {
-    return Swal.fire('Error', 'Ya tienes una reserva en ese horario', 'warning');
+  // verificar duplicado
+  if (reservas.some((r) => r.nombre === nombre && r.apellido === apellido && r.turno === turno)) {
+    return Swal.fire({
+      title: 'Error',
+      text: 'Ya tenés una reserva en ese horario',
+      icon: 'warning',
+    });
   }
 
-  // cupos
-  if (reservas.filter((r) => r.turno === clave).length >= cupoPorTurno) {
-    return Swal.fire('Cupo completo', 'Ese horario ya no tiene lugares disponibles', 'error');
+  // verificar cupos
+  if (reservas.filter((r) => r.turno === turno).length >= cupoPorTurno) {
+    return Swal.fire({
+      title: 'Cupo completo',
+      text: 'Ese horario ya no tiene lugares disponibles',
+      icon: 'error',
+    });
   }
 
-  reservas.push({ id: Date.now(), nombre, apellido, email, actividad, turno: clave });
+  // guardar
+  reservas.push({
+    id: Date.now(),
+    nombre,
+    apellido,
+    email,
+    actividad,
+    turno,
+  });
+
   localStorage.setItem('reservas', JSON.stringify(reservas));
 
-  Swal.fire('Reserva confirmada', `${actividad}<br>${clave}`, 'success');
+  Toastify({
+    text: 'Reserva Confirmada',
+    gravity: 'top',
+    className: 'toastify-success',
+    duration: 2000,
+    offset: { x: 20, y: 80 },
+  }).showToast();
 
   e.target.reset();
   cargarPlaceholderHorario();
   refrescarHistorial();
 });
+
 // editar reserva
 function editarReserva(index) {
   const r = reservas[index];
 
-  // cargar datos al form
-  document.getElementById('nombre').value = r.nombre;
-  document.getElementById('apellido').value = r.apellido;
-  document.getElementById('email').value = r.email;
-  document.getElementById('actividad').value = r.actividad;
+  // cargar form
+  nombreInput.value = r.nombre;
+  apellidoInput.value = r.apellido;
+  emailInput.value = r.email;
+  actividadInput.value = r.actividad;
 
-  // separar fecha y hora
   const [fecha, hora] = r.turno.split(' ');
 
-  document.getElementById('fecha').value = fecha;
-
-  // cargar horarios del día
+  fechaInput.value = fecha;
   cargarHorariosSegunFecha(fecha);
+  selectHorarioInput.value = hora;
 
-  // seleccionar el horario previo
-  const sel = document.getElementById('selectHorario');
-  sel.value = hora;
-
-  // eliminar reserva vieja para re-guardar
+  // eliminar la reserva original
   reservas.splice(index, 1);
   localStorage.setItem('reservas', JSON.stringify(reservas));
   refrescarHistorial();
@@ -144,5 +163,6 @@ function editarReserva(index) {
     text: 'Editando reserva... modificá y guardá',
     gravity: 'top',
     duration: 2500,
+    className: 'toastify-success',
   }).showToast();
 }

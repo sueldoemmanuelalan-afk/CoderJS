@@ -4,11 +4,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background: url(../img/bg2.jpg) no-repeat center / contain;
   background-attachment: fixed;
-  color: #020202;
-  backdrop-filter: brightness(0.75);
+  color: #f8d90f;
   font-family: Arial, sans-serif;
 }
 /*font face*/
@@ -66,7 +66,6 @@ span {
 .glass {
   background: transparent;
   border-radius: 10px;
-  backdrop-filter: blur(4px);
   width: 420px;
 }
 .form-section {
@@ -122,4 +121,83 @@ span {
   .features p {
     font-size: 0.9rem;
   }
+}
+/* estilos sweetalert */
+
+.swal2-popup {
+  background: #000;
+  border: 2px solid #f8d90f;
+  color: #f8d90f;
+  text-shadow: 0 0 3px #f8d90f;
+  box-shadow: 0 0 25px #f8d90f88;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.swal2-title {
+  color: #f8d90f;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px #f8d90f;
+}
+
+.swal2-html-container {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.swal2-confirm {
+  background: #f8d90f;
+  color: #000;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #f8d90f;
+}
+.swal2-confirm:hover {
+  background: #ffe45c;
+}
+/* Restaurar paddings internos del popup */
+.swal2-popup {
+  padding: 2em;
+}
+
+/* Restaurar el centrado */
+.swal2-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Evitar que backdrop-filter afecte el overlay */
+.swal2-container.swal2-backdrop-show {
+  backdrop-filter: none;
+}
+
+/* estilos toastify */
+.toastify {
+  z-index: 30000;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: bold;
+  box-shadow: 0 0 10px #f8d90faa;
+}
+
+.toastify-success {
+  background: #f8d90f;
+  color: #000;
+}
+
+.toastify-error {
+  background: #ff3b3b;
+  color: #fff;
+}
+
+.toastify img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.toastify-top {
+  top: 60px;
 }

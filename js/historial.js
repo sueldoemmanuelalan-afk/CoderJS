@@ -1,26 +1,27 @@
-//historial
+// refrescar historial
 function refrescarHistorial() {
   const ul = document.getElementById('listaHistorial');
   ul.innerHTML = '';
 
   if (!reservas.length) {
-    ul.innerHTML = `<li class="list-group-item text-center text-muted">No hay reservas</li>`;
+    ul.innerHTML = `<li class="list-group-item text-center text-muted bg-dark text-light">No hay reservas</li>`;
     return;
   }
 
   reservas.forEach((r, i) => {
     const li = document.createElement('li');
-    li.className = 'list-group-item d-flex justify-content-between align-items-center bg-light';
+    li.className =
+      'list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-warning';
 
     li.innerHTML = `
       <div>
-        <strong>${r.nombre} ${r.apellido}</strong><br>
+        <strong class="text-neon">${r.nombre} ${r.apellido}</strong><br>
         <small>${r.actividad} — ${r.turno}</small><br>
-        <small class="text-muted">${r.email}</small>
+        <small class="text-neon">${r.email}</small>
       </div>
     `;
 
-    const botones = document.createElement('div');
+    const btns = document.createElement('div');
 
     // botón editar
     const btnEdit = document.createElement('button');
@@ -34,33 +35,49 @@ function refrescarHistorial() {
     btnDel.textContent = 'Eliminar';
     btnDel.onclick = () => eliminarReserva(i);
 
-    botones.appendChild(btnEdit);
-    botones.appendChild(btnDel);
-
-    li.appendChild(botones);
+    btns.appendChild(btnEdit);
+    btns.appendChild(btnDel);
+    li.appendChild(btns);
     ul.appendChild(li);
   });
 }
 
+// eliminar reserva
 function eliminarReserva(i) {
-  reservas.splice(i, 1);
-  localStorage.setItem('reservas', JSON.stringify(reservas));
-  Toastify({ text: 'Reserva eliminada', gravity: 'top', duration: 2000 }).showToast();
-  refrescarHistorial();
+  Swal.fire({
+    title: '¿Eliminar reserva?',
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Eliminar',
+    cancelButtonText: 'Cancelar',
+  }).then((r) => {
+    if (r.isConfirmed) {
+      reservas.splice(i, 1);
+      localStorage.setItem('reservas', JSON.stringify(reservas));
+      refrescarHistorial();
+
+      Toastify({
+        text: 'Reserva eliminada',
+        gravity: 'top',
+        className: 'toastify-error',
+        duration: 2000,
+      }).showToast();
+    }
+  });
 }
-// borrar todo el historial
+
+// borrar todo historial
 function borrarTodoHistorial() {
   Swal.fire({
     title: '¿Borrar todo el historial?',
     text: 'Esta acción no se puede deshacer.',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Borrar',
+    confirmButtonText: 'Borrar todo',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-  }).then((result) => {
-    if (result.isConfirmed) {
+  }).then((r) => {
+    if (r.isConfirmed) {
       reservas = [];
       localStorage.setItem('reservas', JSON.stringify(reservas));
       refrescarHistorial();
@@ -68,12 +85,11 @@ function borrarTodoHistorial() {
       Toastify({
         text: 'Historial eliminado',
         gravity: 'top',
+        className: 'toastify-error',
         duration: 2000,
-        style: { background: 'linear-gradient(to right, #ff0000, #ff8800)' },
       }).showToast();
     }
   });
 }
-// botón borrar historial
-const btnBorrarHistorial = document.getElementById('btnBorrarHistorial');
-btnBorrarHistorial.addEventListener('click', borrarTodoHistorial);
+
+document.getElementById('btnBorrarHistorial').addEventListener('click', borrarTodoHistorial);
