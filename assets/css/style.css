@@ -1,40 +1,125 @@
+/* reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
-  background: url(../img/bg.jpg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: #0000;
-  backdrop-filter: brightness(0.8);
-  min-height: 100vh;
+  background: url(../img/bg2.jpg) no-repeat center / contain;
+  background-attachment: fixed;
+  color: #020202;
+  backdrop-filter: brightness(0.75);
+  font-family: Arial, sans-serif;
 }
-.card {
-  background-color: rgba(0, 0, 0, 0.479);
-  max-width: 500px;
-  width: 100%;
-}
-.logo {
-  width: 100px;
-  height: 55px;
-}
-.footer-logotipo {
-  width: 25px;
-  height: 25px;
-}
+/*font face*/
 @font-face {
   font-family: 'kolker';
   src: url(../fonts/KolkerBrush-Regular.ttf);
   font-weight: bold;
   font-style: bold;
 }
-a {
+span {
   font-family: 'kolker';
   font-weight: bold;
+  font-size: 7rem;
 }
-.navbar-brand {
-  font-size: 60px;
+/* neon */
+.text-neon {
+  color: #f8d90f;
+}
+.btn-neon {
+  background: #f8d90f;
+  color: #000;
+  font-weight: bold;
+  border: none;
+}
+.btn-neon:hover {
+  background: #ffe45c;
+  color: #000;
+}
+/* hero */
+.hero {
+  height: 80vh;
+  background: rgba(0, 0, 0, 0.55);
+}
+.hero-logo {
+  display: none;
+  width: 300px;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+/* features */
+.features {
+  background: rgba(0, 0, 0, 0.55);
+}
+.features h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+/* formulario */
+.glass {
+  background: transparent;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  width: 420px;
+}
+.form-section {
+  background: rgba(0, 0, 0, 0.55);
+}
+.form-label {
+  font-weight: bold;
+}
+/* historial */
+.historial-section {
+  background: rgba(0, 0, 0, 0.55);
+}
+.historial-list {
+  max-width: 500px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.55);
+}
+/* footer */
+.footer {
+  background: rgba(0, 0, 0, 0.55);
+}
+.footer-icon {
+  width: 30px;
+  height: 30px;
+}
+.footer-copy {
+  opacity: 0.8;
+  margin-top: 10px;
+}
+/* responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-logo {
+    width: 110px;
+  }
+  .glass {
+    width: 90%;
+  }
+  .historial-list {
+    max-width: 90%;
+  }
+}
+@media (max-width: 576px) {
+  .hero {
+    height: 70vh;
+  }
+  .hero-title {
+    font-size: 1.6rem;
+  }
+  .features p {
+    font-size: 0.9rem;
+  }
 }
