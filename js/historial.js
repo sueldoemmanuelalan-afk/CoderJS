@@ -68,28 +68,28 @@ function eliminarReserva(i) {
 }
 
 // borrar todo historial
-function borrarTodoHistorial() {
-  Swal.fire({
-    title: '¿Borrar todo el historial?',
-    text: 'Esta acción no se puede deshacer.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Borrar todo',
-    cancelButtonText: 'Cancelar',
-  }).then((r) => {
-    if (r.isConfirmed) {
-      reservas = [];
-      localStorage.setItem('reservas', JSON.stringify(reservas));
-      refrescarHistorial();
-
-      Toastify({
-        text: 'Historial eliminado',
-        gravity: 'top',
-        className: 'toastify-error',
-        duration: 2000,
-      }).showToast();
-    }
-  });
+function crearBotonBorrarHistorial() {
+  const c = document.getElementById('historial-buttons');
+  const btn = document.createElement('button');
+  btn.textContent = 'Borrar todo el historial';
+  btn.className = 'btn btn-neon mt-3 w-25';
+  btn.onclick = () => {
+    Swal.fire({
+      title: '¿Borrar historial?',
+      text: 'No se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Borrar',
+      cancelButtonText: 'Cancelar',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        reservas = [];
+        localStorage.setItem('reservas', JSON.stringify(reservas));
+        refrescarHistorial();
+        Toastify({ text: 'Historial eliminado', className: 'toastify-success', gravity: 'top' }).showToast();
+      }
+    });
+  };
+  c.appendChild(btn);
 }
-
-document.getElementById('btnBorrarHistorial').addEventListener('click', borrarTodoHistorial);
+crearBotonBorrarHistorial();

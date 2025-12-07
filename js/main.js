@@ -72,7 +72,15 @@ function cargarHorariosSegunFecha(fecha) {
     selectHorarioInput.disabled = true;
   }
 }
-
+// boton reservar
+function crearBotonReservar() {
+  const btn = document.createElement('button');
+  btn.type = 'submit';
+  btn.textContent = 'Reservar';
+  btn.className = 'btn btn-neon w-100';
+  document.getElementById('formReserva').appendChild(btn);
+}
+crearBotonReservar();
 // reservar
 document.getElementById('formReserva').addEventListener('submit', (e) => {
   e.preventDefault();
