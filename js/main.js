@@ -52,7 +52,7 @@ fechaInput.addEventListener('change', (e) => {
 });
 
 function cargarHorariosSegunFecha(fecha) {
-  selectHorarioInput.innerHTML = `<option disabled selected>Seleccioná horario</option>`;
+  selectHorarioInput.innerHTML = `<option value="" disabled selected>Seleccioná horario</option>`;
   selectHorarioInput.disabled = false;
 
   let disponible = false;
@@ -68,7 +68,7 @@ function cargarHorariosSegunFecha(fecha) {
   });
 
   if (!disponible) {
-    selectHorarioInput.innerHTML = `<option disabled>No hay horarios disponibles</option>`;
+    selectHorarioInput.innerHTML = `<option value="" disabled>No hay horarios disponibles</option>`;
     selectHorarioInput.disabled = true;
   }
 }
