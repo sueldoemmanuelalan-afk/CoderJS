@@ -79,5 +79,5 @@ Uso educativo. Libre para copiar o modificar.
 ## Autor
 
 Proyecto realizado por **[Sueldo Alan]**  
-Preentrega 2 de JavaScript - Profesor: Jesus Gabriel Jorge
+Entrega Final de JavaScript - Profesor: Jesus Gabriel Jorge
 Comisión: 80770
