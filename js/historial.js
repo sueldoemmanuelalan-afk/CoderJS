@@ -4,7 +4,7 @@ function refrescarHistorial() {
   ul.innerHTML = '';
 
   if (!reservas.length) {
-    ul.innerHTML = `<li class="list-group-item text-center text-muted bg-dark text-light">No hay reservas</li>`;
+    ul.innerHTML = `<li class="list-group-item text-center bg-dark text-light">No hay reservas</li>`;
     return;
   }
 
