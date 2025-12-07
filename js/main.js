@@ -42,7 +42,7 @@ function llenarActividades() {
 
 // placeholder horario
 function cargarPlaceholderHorario() {
-  selectHorarioInput.innerHTML = `<option disabled selected>Elegí primero un día…</option>`;
+  selectHorarioInput.innerHTML = `<option value="" disabled selected>Elegí primero un día…</option>`;
   selectHorarioInput.disabled = true;
 }
 
@@ -84,13 +84,13 @@ document.getElementById('formReserva').addEventListener('submit', (e) => {
   const fecha = fechaInput.value;
   const hora = selectHorarioInput.value;
 
-  if (!nombre || !apellido || !email || !actividad || !fecha || !hora) {
-    return Toastify({
-      text: 'Completá todos los campos',
-      gravity: 'top',
-      duration: 2000,
-      className: 'toastify-error',
-    }).showToast();
+  if (!nombre || !apellido || !email || !actividad || !fecha || !hora || hora === '' || hora === 'Seleccioná horario') {
+    return Swal.fire({
+      title: 'Falta completar datos',
+      html: 'Elegí un <b>horario válido</b> antes de reservar.',
+      icon: 'warning',
+      confirmButtonColor: '#f8d90f',
+    });
   }
 
   const turno = `${fecha} ${hora}`;
